@@ -15,25 +15,35 @@ const config = {
 (async () => {
 	console.time('QUERY');
 
-	// delete all tables and routine
+	const filepath = './sugity_dev_db.sql';
+
+	/** delete all tables and routine **/
 	//~ await importer.init(config).emptyDatabase();
 
-	// Group queries inside sql file
-	//~ const parsed = await importer.init(config).parse('./from_pma.sql');
-	//~ console.log(parsed);
+	/** Group queries inside sql file **/
+	//~ const parsed = await importer.init(config).parse(filepath);
+	//~ console.log(parsed.names);
+	//~ console.log(parsed.queries.nonTable.routines[2]);
+	//~ console.log(parsed.queries.view[2]);
 
-	// import db structure and data
+	/** import db structure and data **/
 	//~ await importer.init(config).importFile('./from_pma.sql');
 
-	// import db structure only
-	await importer.init(config).importFile('./from_pma.sql', {
-			withData: false,
-		});
+	/** import db structure only **/
+	//~ await importer.init(config).importFile('./from_pma.sql', {
+			//~ withData: false,
+		//~ });
 
-	// import db without dropping all tables and routines first.
+	/** import db without dropping all tables and routines first. **/
 	//~ await importer.init(config).importFile('./from_pma.sql', {
 			//~ dropFirst: false,
 		//~ });
+
+	/** import db without data and drop all tables and routines first. **/
+	await importer.init(config).importFile(filepath, {
+			withData: false,
+			dropFirst: true,
+		});
 
 	console.timeEnd('QUERY');
 
