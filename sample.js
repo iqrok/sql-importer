@@ -1,5 +1,5 @@
 const fs = require('fs');
-const importer = require('.');
+const mysqlImporter = require('.');
 
 const config = {
 		host: 'localhost',
@@ -13,12 +13,14 @@ const config = {
 	};
 
 (async () => {
-	console.time('QUERY');
-
 	const filepath = './sugity_dev_db.sql';
 
+	console.time('QUERY');
+
+	const importer = mysqlImporter.init(config);
+
 	/** delete all tables and routine **/
-	//~ await importer.init(config).emptyDatabase();
+	//~ await importer.emptyDatabase();
 
 	/** Group queries inside sql file **/
 	//~ const parsed = await importer.init(config).parse(filepath);
@@ -46,6 +48,4 @@ const config = {
 		});
 
 	console.timeEnd('QUERY');
-
-	process.exit(0);
 })();
