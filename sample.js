@@ -8,7 +8,6 @@ const config = {
 		password: '',
 		database: 'test_db',
 		charset: 'utf8mb4',
-		rejectEmpty: true,
 		trace: true,
 		verbose: 2,
 	};
@@ -19,13 +18,22 @@ const config = {
 	// delete all tables and routine
 	//~ await importer.init(config).emptyDatabase();
 
-	// when importing from file, db will be always emptied first
+	// Group queries inside sql file
+	//~ const parsed = await importer.init(config).parse('./from_pma.sql');
+	//~ console.log(parsed);
 
 	// import db structure and data
 	//~ await importer.init(config).importFile('./from_pma.sql');
 
 	// import db structure only
-	await importer.init(config).importFile('./from_pma.sql', false);
+	await importer.init(config).importFile('./from_pma.sql', {
+			withData: false,
+		});
+
+	// import db without dropping all tables and routines first.
+	//~ await importer.init(config).importFile('./from_pma.sql', {
+			//~ dropFirst: false,
+		//~ });
 
 	console.timeEnd('QUERY');
 
