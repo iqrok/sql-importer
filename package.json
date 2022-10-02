@@ -1,7 +1,7 @@
 {
-  "name": "sql-importer",
-  "version": "0.1.0",
-  "description": "",
+  "name": "sql-file-importer",
+  "version": "0.0.1",
+  "description": "import sql file into database for mariadb",
   "main": "lib/sqlImporter.class.js",
   "private": false,
   "scripts": {
