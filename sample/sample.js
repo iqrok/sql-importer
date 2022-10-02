@@ -1,5 +1,4 @@
-const fs = require('fs');
-const mysqlImporter = require('.');
+const sqlFileImporter = require('..');
 
 const config = {
 		host: 'localhost',
@@ -12,12 +11,12 @@ const config = {
 		verbose: 2,
 	};
 
+const importer = sqlFileImporter.init(config);
+
 (async () => {
-	const filepath = './sugity_dev_db.sql';
+	const filepath = __dirname + '/from_pma.sql';
 
 	console.time('QUERY');
-
-	const importer = mysqlImporter.init(config);
 
 	/** delete all tables and routine **/
 	//~ await importer.emptyDatabase();
@@ -29,23 +28,26 @@ const config = {
 	//~ console.log(parsed.queries.view[2]);
 
 	/** import db structure and data **/
-	//~ await importer.init(config).importFile('./from_pma.sql');
+	//~ const proc = await importer.init(config).importFile('./from_pma.sql');
 
 	/** import db structure only **/
-	//~ await importer.init(config).importFile('./from_pma.sql', {
+	//~ const proc = await importer.init(config).importFile('./from_pma.sql', {
 			//~ withData: false,
 		//~ });
 
 	/** import db without dropping all tables and routines first. **/
-	//~ await importer.init(config).importFile('./from_pma.sql', {
+	//~ const proc = await importer.init(config).importFile('./from_pma.sql', {
 			//~ dropFirst: false,
 		//~ });
 
-	/** import db without data and drop all tables and routines first. **/
-	await importer.init(config).importFile(filepath, {
-			withData: false,
+	/** import db data and multiple rows insert statement will be splitted into
+	 * single row statements. **/
+	const proc = await importer.init(config).importFile(filepath, {
+			withData: 'single',
 			dropFirst: true,
 		});
+
+	console.log(proc);
 
 	console.timeEnd('QUERY');
 })();
