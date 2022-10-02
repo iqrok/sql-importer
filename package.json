@@ -4,6 +4,9 @@
   "description": "import sql file into database for mariadb",
   "main": "lib/sqlImporter.class.js",
   "private": false,
+  "files": [
+	"lib/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
