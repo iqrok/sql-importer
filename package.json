@@ -1,11 +1,11 @@
 {
   "name": "sql-file-importer",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha",
   "description": "import sql file into database for mariadb",
   "main": "lib/sqlImporter.class.js",
   "private": false,
   "files": [
-	"lib/"
+    "lib/"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
