@@ -22,27 +22,35 @@ const importer = sqlFileImporter.init(config);
 	//~ await importer.emptyDatabase();
 
 	/** Parse queries inside sql file **/
-	const proc = await importer.init(config).parse(filepath);
+	//~ const proc = await importer.init(config).read(filepath).parse();
 
 	/** import db structure and data **/
-	//~ const proc = await importer.init(config).importFile('./from_pma.sql');
+	//~ const proc = await importer.init(config)
+		//~ .read(filepath)
+		//~ .importFile();
 
 	/** import db structure only **/
-	//~ const proc = await importer.init(config).importFile('./from_pma.sql', {
-			//~ withData: false,
-		//~ });
+	//~ const proc = await importer.init(config)
+		//~ .read(filepath)
+		//~ .importFile({
+				//~ withData: false,
+			//~ });
 
 	/** import db without dropping all tables and routines first. **/
-	//~ const proc = await importer.init(config).importFile('./from_pma.sql', {
-			//~ dropFirst: false,
-		//~ });
+	//~ const proc = await importer.init(config)
+		//~ .read(filepath)
+		//~ .importFile({
+				//~ dropFirst: false,
+			//~ });
 
 	/** import db data and multiple rows insert statement will be splitted into
 	 * single row statements. **/
-	//~ const proc = await importer.init(config).importFile(filepath, {
-			//~ withData: 'single',
-			//~ dropFirst: true,
-		//~ });
+	const proc = await importer.init(config)
+		.read(filepath)
+		.importFile({
+				withData: 'single',
+				dropFirst: true,
+			});
 
 	console.log(proc);
 
