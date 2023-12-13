@@ -113,7 +113,10 @@ describe("From PMA's export", () => {
 
         const proc = await importer.init(__config.db)
         .read(filepath)
-        .importFile();
+        .importFile({
+            dropFirst: false,
+            compareExisting: true
+        });
 
 
         // check if routines success imported
@@ -154,7 +157,10 @@ describe("From PMA's export", () => {
 
         const proc = await importer.init(__config.db)
         .read(filepath)
-        .importFile();
+        .importFile({
+            dropFirst: false,
+            compareExisting: true
+        });
 
 
         // check if routines success imported
@@ -195,7 +201,7 @@ describe("From PMA's export", () => {
 
         // check if new table exist and has content
         const isTableItemContent = await gen.checkTableItemHasContent()
-        expect(isTableItemContent).toBe(false)
+        expect(isTableItemContent).toBe(true)
     })
 
 })
