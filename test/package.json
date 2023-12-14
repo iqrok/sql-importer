@@ -1,0 +1,22 @@
+{
+    "name": "test",
+    "version": "0.0.1",
+    "description": "",
+    "main": "setupTests.js",
+    "private": false,
+    "scripts": {
+      "test": "jest --forceExit --detectOpenHandles --runInBand"
+    },
+    "author": "rusminto <rusminto900@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+      "jest": "^29.7.0"
+    },
+    "jest": {
+      "verbose": true,
+      "setupFilesAfterEnv": [
+        "./setupTests.js"
+      ]
+    }
+  }
+  
