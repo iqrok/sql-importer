@@ -1,6 +1,6 @@
 # SQL File Importer
 
-Import sql file to database in mariadb server. Probably also works in MySQL server, but currently only tested in mariadb 10.4.
+Import sql file to database in mariadb server. Probably also works in MySQL server, but currently only tested in mariadb 10.4 & 15.1.
 
 ## Usage
 
