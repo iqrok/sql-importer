@@ -1,4 +1,6 @@
-const mysql = new (require(`${__basedir}/lib/mariadb.class.js`))(__config.db);
+const mysql = require(`${__basedir}/lib/mariadb.class.js`);
+mysql.setConfig(__config.db)
+
 
 class generalTest{
 
@@ -104,10 +106,39 @@ class generalTest{
         .catch(err => false)
     }
 
+    async isStatusCodeChanged(){
+        return mysql.query(`
+        SELECT
+        CONCAT(
+            IF(column_type IS NULL, "", CONCAT(column_type, " ")), 
+            IF(is_nullable = "YES", "NULL", "NOT NULL"), 
+            IF(column_default IS NULL, "", CONCAT(" DEFAULT ", column_default))
+        ) as curDetail
+        FROM information_schema.COLUMNS
+        WHERE TABLE_SCHEMA = ? AND TABLE_NAME = "d_access_proposal" AND COLUMN_NAME = "statusCode";
+        `,[__config.db.database])
+        .then(res => {
+            return res[0].curDetail == `text NULL DEFAULT 'NO NO'` ? true : false
+        })
+        .catch(err => false)
+    }
+
+    async isStatusCodeHasData(){
+        return mysql.query(`
+        SELECT SUM(IF(statusCode IS NOT NULL, 1, 0)) as total FROM d_access_proposal
+        `)
+        .then(res => {
+            return res[0].total > 0 ? true: false
+        })
+        .catch(err => false)
+        
+    }
+
+
 
     async close(){
         try{
-            await mysql.end();
+            await mysql.endAll();
         }catch(err){
             console.log(err)
         }

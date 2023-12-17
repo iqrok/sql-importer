@@ -151,6 +151,100 @@ describe("From PMA's export", () => {
     })
 
 
+    test("Import partially (Update Column)", async () => {
+        // import db from sql file
+        const filepath = __basedir + '/sample/from_pma_update_column.sql';
+
+        const proc = await importer.init(__config.db)
+        .read(filepath)
+        .importFile({
+            dropFirst: false,
+            compareExisting: true
+        });
+
+
+        // check if routines success imported
+        const isRoutineExist = await gen.checkRoutine()
+        expect(isRoutineExist).toBe(true)
+
+
+        // check if table success imported
+        const isTableExist = await gen.checkTable()
+        expect(isTableExist).toBe(true)
+
+
+        // check if table has no content
+        const isTableHasContent = await gen.checkTableHasContent()
+        expect(isTableHasContent).toBe(true)
+
+
+        // check last update
+        // check if table has column "itemCode"
+        const isTableHasItemCode = await gen.checkTableHasItemCode()
+        expect(isTableHasItemCode).toBe(true)
+
+        // check if table has column "itemCode" and has content
+        const isTableHasItemCodeContent = await gen.checkTableHasItemCodeContent()
+        expect(isTableHasItemCodeContent).toBe(false)
+        
+
+
+        // check new update
+        // check if column "statusCode" has type "text"  and has default "NO NO" 
+        const isStatusCodeChanged = await gen.isStatusCodeChanged()
+        expect(isStatusCodeChanged).toBe(true)
+        
+        // check if column "statusCode" still has it's data
+        const isStatusCodeHasData = await gen.isStatusCodeHasData()
+        expect(isStatusCodeHasData).toBe(true)
+    })
+
+    test("Import partially (Update Column, but clear data)", async () => {
+        // import db from sql file
+        const filepath = __basedir + '/sample/from_pma_update_column_nulling.sql';
+
+        const proc = await importer.init(__config.db)
+        .read(filepath)
+        .importFile({
+            dropFirst: false,
+            compareExisting: true,
+            schemaUpdateClearData: true
+        });
+
+
+        // check if routines success imported
+        const isRoutineExist = await gen.checkRoutine()
+        expect(isRoutineExist).toBe(true)
+
+
+        // check if table success imported
+        const isTableExist = await gen.checkTable()
+        expect(isTableExist).toBe(true)
+
+
+        // check if table has no content
+        const isTableHasContent = await gen.checkTableHasContent()
+        expect(isTableHasContent).toBe(true)
+
+
+        // check last update
+        // check if table has column "itemCode"
+        const isTableHasItemCode = await gen.checkTableHasItemCode()
+        expect(isTableHasItemCode).toBe(true)
+
+        // check if table has column "itemCode" and has content
+        const isTableHasItemCodeContent = await gen.checkTableHasItemCodeContent()
+        expect(isTableHasItemCodeContent).toBe(false)
+        
+
+
+        // check new update
+        // check if column "statusCode" has no data
+        const isStatusCodeHasData = await gen.isStatusCodeHasData()
+        expect(isStatusCodeHasData).toBe(false)
+    })
+
+
     test("Import partially (Add Empty Table)", async () => {
         // import db from sql file
         const filepath = __basedir + '/sample/from_pma_add_table.sql';
@@ -203,6 +297,7 @@ describe("From PMA's export", () => {
         const isTableItemContent = await gen.checkTableItemHasContent()
         expect(isTableItemContent).toBe(true)
     })
+    
 
 })
 
