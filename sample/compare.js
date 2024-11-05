@@ -26,7 +26,11 @@ const config = {
 
 	const res = compare.compare(existing, fromFile);
 	const errno = compare.getErrno(res);
+	const diff = compare.getDiffString(res);
 
+	console.timeEnd('QUERY');
+
+	console.log(diff);
 	console.log('errno', errno);
 	if (errno & SQLCompare.errno.MODIFIED) {
 		console.log('At least a column has been modified')
@@ -39,8 +43,4 @@ const config = {
 	if (errno & SQLCompare.errno.ADDED) {
 		console.log('At least a column has been added in new database')
 	}
-
-	if (errno) compare.printDiff(res);
-
-	console.timeEnd('QUERY');
 })();
