@@ -1,14 +1,15 @@
 {
   "name": "sql-file-importer",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "import sql file into database for mariadb",
-  "main": "lib/sqlImporter.class.js",
+  "main": "index.js",
   "private": false,
   "files": [
     "lib/"
   ],
   "scripts": {
-    "test": "cd test && npm run test"
+    "docs": "doxygen docs/Doxyfile",
+    "docs-open": "xdg-open docs/output/html/index.html"
   },
   "repository": {
     "type": "git",
