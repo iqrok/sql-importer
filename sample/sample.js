@@ -1,4 +1,5 @@
-const sqlFileImporter = require('..');
+const { SqlImporter } = require('..');
+//~ const importer = require('..');
 
 const config = {
 		host: 'localhost',
@@ -11,10 +12,13 @@ const config = {
 		verbose: 1,
 	};
 
-const importer = sqlFileImporter.init(config);
+const importer = new SqlImporter();
+
+importer.init(config);
 
 (async () => {
 	const filepath = __dirname + '/from_pma.sql';
+	//~ const filepath = __dirname + '/from_mysqldump.sql';
 
 	console.time('QUERY');
 
@@ -41,6 +45,8 @@ const importer = sqlFileImporter.init(config);
 		//~ .read(filepath)
 		//~ .importFile({
 				//~ dropFirst: false,
+				//~ withData: 'single',
+				//~ closeConnection: true,
 			//~ });
 
 	/** import db data and multiple rows insert statement will be splitted into
@@ -50,9 +56,12 @@ const importer = sqlFileImporter.init(config);
 		.importFile({
 				withData: 'single',
 				dropFirst: true,
+				closeConnection: true,
 			});
 
 	console.log(proc);
 
 	console.timeEnd('QUERY');
+
+	//~ importer.close();
 })();
