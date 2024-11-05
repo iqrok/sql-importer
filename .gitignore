@@ -4,3 +4,4 @@ node_modules/
 docs/output/
 pnpm-lock.yaml
 sample/*.sql
+*.tgz
