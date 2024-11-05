@@ -1,4 +1,6 @@
 db/
+out/
 node_modules/
-package-lock.json
+docs/output/
 pnpm-lock.yaml
+sample/*.sql
