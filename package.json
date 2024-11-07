@@ -1,28 +1,38 @@
 {
-  "name": "sql-file-importer",
-  "version": "0.1.0",
-  "description": "import sql file into database for mariadb",
-  "main": "index.js",
-  "private": false,
-  "files": [
-    "lib/"
-  ],
-  "scripts": {
-    "docs": "doxygen docs/Doxyfile",
-    "docs-open": "xdg-open docs/output/html/index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/iqrok/sql-importer.git"
-  },
-  "keywords": [
-    "mariadb",
-    "mysql",
-    "import"
-  ],
-  "author": "iqrok <blogo3x@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "mariadb": "^3.0.1"
-  }
+	"name": "sql-file-importer",
+	"version": "0.1.0",
+	"description": "import sql file into database for mariadb",
+	"main": "index.js",
+	"private": false,
+	"files": [
+		"lib/"
+	],
+	"scripts": {
+		"docs": "doxygen docs/Doxyfile",
+		"docs-open": "xdg-open docs/output/html/index.html"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/iqrok/sql-importer.git"
+	},
+	"keywords": [
+		"mariadb",
+		"mysql",
+		"import"
+	],
+	"contributors": [
+		{
+			"name": "iqrok",
+			"email": "blogo3x@gmail.com",
+			"url": "https://github.com/iqrok"
+		},
+		{
+			"name": "rusminto",
+			"url": "https://github.com/rusminto"
+		}
+	],
+	"license": "MIT",
+	"dependencies": {
+		"mariadb": "^3.0.1"
+	}
 }
