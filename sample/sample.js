@@ -1,5 +1,4 @@
-const { SqlImporter } = require('..');
-//~ const importer = require('..');
+const { SQLImporter } = require('..');
 
 const config = {
 		host: 'localhost',
@@ -12,9 +11,7 @@ const config = {
 		verbose: 1,
 	};
 
-const importer = new SqlImporter();
-
-importer.init(config);
+const importer = new SQLImporter();
 
 (async () => {
 	const filepath = __dirname + '/from_pma.sql';
@@ -23,10 +20,12 @@ importer.init(config);
 	console.time('QUERY');
 
 	/** delete all tables and routine **/
-	//~ await importer.emptyDatabase();
+	//~ await importer.init(config).emptyDatabase();
 
 	/** Parse queries inside sql file **/
-	//~ const proc = await importer.init(config).read(filepath).parse();
+	//~ const proc = await importer.init(config)
+		//~ .read(filepath)
+		//~ .parse();
 
 	/** import db structure and data **/
 	//~ const proc = await importer.init(config)
