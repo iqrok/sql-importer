@@ -1,16 +1,33 @@
 const SQLImporter = require('./lib/sqlImporter.class.js');
 const SQLCompare = require('./lib/sqlCompare.class.js');
 
-/**
- * Avoiding breaking change.
- *
- * On previous version,
- * an instance of SQLImporter is exported instead of the SQLImporter class.
- * */
+const version = require('./package.json')?.version?.split('.');
 
-const instance = new SQLImporter();
+switch (version && version[0]) {
 
-instance.SQLImporter = SQLImporter;
-instance.SQLCompare = SQLCompare;
+case '0': {
+	/**
+	 * Avoiding breaking change.
+	 *
+	 * On previous version 0.0.3,
+	 * an instance of SQLImporter is exported instead of the SQLImporter class.
+	 * */
+	const instance = new SQLImporter();
 
-module.exports = instance;
+	instance.SQLImporter = SQLImporter;
+	instance.SQLCompare = SQLCompare;
+
+	module.exports = instance;
+} break;
+
+default: {
+	/**
+	 * For version >= 1.x.x, export only the Class not the instance.
+	 * */
+	module.exports = {
+		SQLImporter,
+		SQLCompare,
+	};
+} break;
+
+}
