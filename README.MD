@@ -12,6 +12,10 @@ npm i sql-file-importer
 
 ## History
 
+### v0.1.1
+
+- Handle **FULLTEXT KEY** column
+
 ### v0.1.0
 
 - Add **SQLCompare** to compare between existing database and SQL File
